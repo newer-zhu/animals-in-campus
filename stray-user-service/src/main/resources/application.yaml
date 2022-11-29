@@ -1,0 +1,55 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: stray-user-service
+  cloud:
+    nacos:
+#      config:
+#        refresh-enabled: true
+#        file-extension: yaml
+#        namespace: 3f9a1b38-81ad-4ff1-aac5-4fdba6031ce6
+#        server-addr: 127.0.0.1:8848
+      discovery:
+        server-addr: 127.0.0.1:8848
+        register-enabled: true
+        namespace: 3f9a1b38-81ad-4ff1-aac5-4fdba6031ce6
+        username: nacos
+        password: nacos
+  datasource:
+    url: jdbc:mysql://localhost:3306/stray_home?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    password: 20001030
+    username: root
+    hikari:
+      pool-name: DateHikariCP
+      minimum-idle: 5
+      idle-timeout: 100000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 100000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+dubbo:
+  protocol:
+    port: -1
+    id: dubbo
+    name: dubbo
+  registry:
+    address: nacos://127.0.0.1:8848
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+
+logging:
+  level:
+    com.nothing.user.mapper: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
