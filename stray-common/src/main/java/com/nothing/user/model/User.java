@@ -1,4 +1,4 @@
-package com.nothing.common.model;
+package com.nothing.user.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
@@ -17,7 +17,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @TableName("s_user")
-//@ApiModel(value = "User对象", description = "")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +40,7 @@ public class User implements Serializable {
     private String avatar;
 
     @TableField("is_valid")
-    private Integer isValid;
+    private Boolean isValid;
 
     @TableField("deleted")
     @TableLogic

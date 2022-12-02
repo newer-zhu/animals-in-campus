@@ -32,6 +32,9 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <spring-boot.version>2.6.13</spring-boot.version>
         <dubbo.version>0.9.0.RELEASE</dubbo.version>
+        <hutool-version>5.7.14</hutool-version>
+        <OAuth2.version>2.2.5.RELEASE</OAuth2.version>
+        <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
     </properties>
 
 

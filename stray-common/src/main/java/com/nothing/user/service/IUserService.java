@@ -2,7 +2,7 @@ package com.nothing.user.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.nothing.common.model.User;
+import com.nothing.user.model.User;
 
 import java.util.List;
 
@@ -16,4 +16,8 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
     List<User> getAllUsers();
+
+    User getUserByUserName(String username);
+
+    User creatUser(User user);
 }

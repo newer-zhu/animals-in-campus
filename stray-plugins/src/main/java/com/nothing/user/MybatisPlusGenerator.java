@@ -1,4 +1,4 @@
-package com.nothing.plugins;
+package com.nothing.user;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
@@ -31,7 +31,7 @@ public class MybatisPlusGenerator {
                 "root", "20001030") //数据库连接配置
                 .globalConfig(builder -> {
                     builder.author("zhuhodor") //作者
-                            .enableSwagger() //开启swagger注解
+                            //.enableSwagger() //开启swagger注解
                             .fileOverride()
                             .commentDate("yyyy-MM-dd")
                             .outputDir(System.getProperty("user.dir")+"\\stray-plugins\\src\\main\\java");

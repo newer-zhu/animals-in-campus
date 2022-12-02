@@ -5,6 +5,28 @@ spring:
   application:
     name: stray-gateway
   cloud:
+    gateway:
+      routes:
+        - id: security-api
+          uri: lb://security-api
+          predicates:
+            - Path=/api/**
+          filters:
+              - StripPrefix=1
+        - id: security-auth
+          uri: lb://security-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: user-path
+          uri: lb://stray-user-service
+          predicates: Path=/user/**
+      discovery:
+        locator:
+          enabled: true #注册中心动态创建路由
+          lower-case-service-id: true
+
     nacos:
 #      config:
 #        refresh-enabled: true
@@ -15,6 +37,7 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: 3f9a1b38-81ad-4ff1-aac5-4fdba6031ce6
+
   datasource:
     url: jdbc:mysql://localhost:3306/stray_home?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     password: 20001030
@@ -28,15 +51,6 @@ spring:
       max-lifetime: 100000
       connection-timeout: 30000
       connection-test-query: SELECT 1
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: route_zero
-          uri: lb://stray-user-service
-          predicates: Path=/user/create
 
 dubbo:
   protocol:
@@ -46,17 +60,18 @@ dubbo:
   registry:
     address: nacos://127.0.0.1:8848
 
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"
+      - "/user/create"
 security:
   oauth2:
-#    client:
-#      clientId: bd1c0a783ccdd1c9b9e4
-#      clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
-#      accessTokenUri: https://github.com/login/oauth/access_token
-#      userAuthorizationUri: https://github.com/login/oauth/authorize
-#      clientAuthenticationScheme: form
-#    resource:
-#      userInfoUri: https://api.github.com/user
-#      preferTokenInfo: false
+    client:
+    resource:
+      jwk:
+        key-set-uri: 'http://localhost:8089/rsa/publicKey' #配置RSA的公钥访问地址
 
 management:
   endpoints:
